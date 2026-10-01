@@ -1,4 +1,6 @@
 //я что то поменял
+using System.ComponentModel.Design;
+
 namespace Lab1
 {
     public class Green
@@ -71,7 +73,7 @@ namespace Lab1
             bool answer = false;
 
             // code here
-
+            answer = (y >= 0) && (y <= 1 - Math.Abs(x));
             // end
 
             return answer;
@@ -82,7 +84,16 @@ namespace Lab1
             bool answer = true;
 
             // code here
-
+            answer = true;
+            if (n < 0)
+            { answer = false; }
+            else
+            {
+                if (n % 2 == 0)
+                {
+                    answer = false;
+                }
+            }
             // end
 
             return answer;
@@ -92,7 +103,51 @@ namespace Lab1
             bool answer = false;
 
             // code here
+            int tobed = 4 * 60;
+            int wakeup = 14 * 60;
+            int targwakeup = 7 * 60;
+            int minsleep = 7 * 60;
+            int maxsleep = 9 * 60;
 
+            bool target = false;
+
+            for(int day = 1; day <= X; day++)
+            {
+                if(!target)
+                { 
+                    wakeup -= 60;
+                    if(wakeup<=targwakeup)
+                    {
+                        wakeup = targwakeup;
+                        target = true;
+                    }
+                }
+                if((day-1)%2==0)
+                {
+                    tobed -= Y;
+                    if(tobed<0)
+                    {
+                        tobed += 1440;
+                    }
+                }
+                int duration;
+                if (tobed>wakeup)
+                {
+                    duration = (1440 - tobed) + wakeup;
+                }
+                else
+                {
+                    duration = wakeup - tobed;
+                }
+                if (day==X&&target&&duration>=minsleep&&duration<=maxsleep)
+                {
+                    answer = true;
+                }
+                else
+                {
+                    answer = false;
+                }
+            }
             // end
 
             return answer;
